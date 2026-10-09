@@ -16,7 +16,15 @@ def add():
     input = add_entry.get()
     list1.insert(tkinter.END,input)
 
-open_button = tkinter.Button(screen,text="OPEN",bg="green")
+def open():
+    open_file = tkinter.filedialog.askopenfile()
+    if open_file != None:
+        items = open_file.readlines()
+        for i in items:
+            list1.insert(tkinter.END,i)
+
+
+open_button = tkinter.Button(screen,text="OPEN",bg="green",command=open)
 open_button.grid(row=1,column=1)
 delete_button = tkinter.Button(screen,text="DELETE",bg="gold",command=delete)
 delete_button.grid(row=1,column=2)
