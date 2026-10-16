@@ -7,6 +7,7 @@ def press(user_choice):
     if user_choice in button_list:
         user_choice.config(text="X",bg="lightblue")
         button_list.remove(user_choice)
+        check_winner()
         computer_choice = random.choice(button_list)
         computer_choice.config(text="O",bg="tomato")
         button_list.remove(computer_choice)
@@ -16,7 +17,13 @@ def check_winner():
     for i in winning_combinations:
         if i[0]["text"] == "X" and i[1]["text"] == "X" and i[2]["text"] == "X":
             tkinter.messagebox.showinfo(title="YOU WIN!",message="Congratulations! you win!!!")
-
+            screen.destroy()
+        if i[0]["text"] == "O" and i[1]["text"] == "O" and i[2]["text"] == "O":
+            tkinter.messagebox.showerror(title="YOU LOSE!",message="The computer won!")
+            screen.destroy()
+    if len(button_list) == 0:
+        tkinter.messagebox.showwarning(title="YOU TIE!",message="You and the computer tied!")
+        screen.destroy()
 button1 = tkinter.Button(screen,font=50,command= lambda:press(button1),width=5,height=3)
 button1.grid(row=1,column=1)
 button2 = tkinter.Button(screen,font=50,command= lambda:press(button2),width=5,height=3)
