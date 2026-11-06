@@ -1,5 +1,6 @@
 import tkinter
 import tkinter.messagebox
+import tkinter.filedialog
 screen = tkinter.Tk()
 address_book = {}
 
@@ -18,9 +19,14 @@ def show(event):
     selected = list1.get(index)
     values = address_book[selected]
     tkinter.messagebox.showinfo(title=selected,message=f"Name: {selected}\nAddress: {values[0]}\nMobile: {values[1]}\nEmail: {values[2]}\nBirthday: {values[3]}")
-def open():
-    pass
 
+def open():
+    global address_book
+    open_file = tkinter.filedialog.askopenfile()
+    if open_file != None:
+        address_book = eval(open_file.read())
+        display()
+        
 def edit():
     index = list1.curselection()
     selected = list1.get(index)
@@ -49,7 +55,10 @@ def update():
     display()
 
 def save():
-    pass
+    selected_file = tkinter.filedialog.asksaveasfile()
+    if selected_file != None:
+        print(address_book,file=selected_file)
+
 
 label1 = tkinter.Label(screen,text="My Address Book:")
 label1.grid(row=1,column=1)
